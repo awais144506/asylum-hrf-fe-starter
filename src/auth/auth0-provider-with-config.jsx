@@ -3,8 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 export const Auth0ProviderWithConfig = ({ children }) => {
   const navigate = useNavigate();
-  const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-  const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+  
+  const domain = import.meta.env.VITE_AUTH_DOMAIN;
+  const clientId = import.meta.env.VITE_AUTH_CLIENT_ID;
+
+  // Good practice: Add a check to ensure variables are loaded
+  if (!domain || !clientId) {
+    console.error("Auth0: Missing VITE_AUTH_DOMAIN or VITE_AUTH_CLIENT_ID in .env");
+    return <>{children}</>; 
+  }
 
   const onRedirectCallback = (appState) => {
     navigate(appState?.returnTo || window.location.pathname);
