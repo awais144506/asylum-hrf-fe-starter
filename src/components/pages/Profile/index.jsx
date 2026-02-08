@@ -1,22 +1,24 @@
-/**
- * TODO: Ticket 3:
- * Implement authentication using Auth0:
- * - Get the user data from Auth0
- * - Create and style the component
- * - Display the data
- * - Make this page a protected Route
- */
-const Profile = () => {
-  // TODO: Replace these with functionality from Auth0
-  const isLoading = false;
-  const user = true;
+import { useAuth0 } from '@auth0/auth0-react';
 
-  if (isLoading || !user) {
+const Profile = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
     return <div className='text-center p-4'>Loading...</div>;
   }
 
   return (
-    <div>Profile Page</div>
+    isAuthenticated && (
+      <div className='flex flex-col items-center gap-4 p-8'>
+        <img
+          src={user.picture}
+          alt={user.name}
+          className='rounded-full w-32 h-32'
+        />
+        <h2 className='text-2xl font-bold'>{user.name}</h2>
+        <p className='text-lg'>{user.email}</p>
+      </div>
+    )
   );
 };
 

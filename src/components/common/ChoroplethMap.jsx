@@ -6,13 +6,15 @@ import { useAppContext } from '../../context/AppContext.jsx';
 export const ChoroplethMap = () => {
   const { graphData } = useAppContext();
 
-  const citizenshipResults = graphData?.citizenshipResults ?? [];
+  const citizenshipResults = Array.isArray(graphData?.citizenshipResults)
+    ? graphData.citizenshipResults
+    : [];
   const locations = citizenshipResults.map(({ citizenship }) => citizenship);
   const z = citizenshipResults.map(({ granted }) => granted?.toFixed(2) ?? 0);
   const text = locations.map(l => l.toLowerCase()).map(l => l.split(' ').map(capitalizr).join(' '));
 
   return (
-    <div className='flex-c align-middle'>
+    <div className='flex flex-col items-center'>
       <Plot
         data={[
           {

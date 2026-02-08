@@ -6,6 +6,7 @@ import { NotFoundPage } from './components/pages/NotFound/index.jsx';
 import * as React from 'react';
 import Profile from './components/pages/Profile/index.jsx';
 import { pageWrapper } from './components/layout/PageWrapper.jsx';
+import { ProtectedRoute } from './components/common/ProtectedRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,14 +21,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: pageWrapper(<Profile />),
+    element: pageWrapper(
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
   },
 ]);
 
 export const App = () => {
   return (
-    <div className='font-serif w-[100vw] h-[100vh] m-0 flex-c justify-between align-centre text-center min-h-screen secondary-c'>
+    <div className='font-serif w-[100vw] h-[100vh] m-0 flex flex-col justify-between items-center text-center min-h-screen secondary-c'>
       <RouterProvider router={router} />
     </div>
   );
