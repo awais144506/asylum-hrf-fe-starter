@@ -6,7 +6,6 @@ import { NotFoundPage } from './components/pages/NotFound/index.jsx';
 import * as React from 'react';
 import Profile from './components/pages/Profile/index.jsx';
 import { pageWrapper } from './components/layout/PageWrapper.jsx';
-
 const router = createBrowserRouter([
   {
     path: '/',

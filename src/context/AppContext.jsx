@@ -17,13 +17,15 @@ const useAppContextProvider = () => {
 
   useLocalStorage({ graphData, setGraphData });
 
+  const API_URL = import.meta.env.VITE_API_URI;
+
   const getFiscalData = async () => {
-    const res = await axios.get('https://asylum-be.onrender.com/fiscalSummary');
+    const res = await axios.get(`${API_URL}/fiscalSummary`);
     return res.data;
   };
 
   const getCitizenshipResults = async () => {
-    const res = await axios.get('https://asylum-be.onrender.com/citizenshipSummary');
+    const res = await axios.get(`${API_URL}/fiscalSummary`);
     return res.data;
   };
 
