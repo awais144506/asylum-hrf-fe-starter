@@ -1,10 +1,9 @@
-// import pieChart from '../../../assets/pie-chart.png';
-// import lineGraph from '../../../assets/line-graph.png';
-// import barGraph from '../../../assets/bar-graph.png';
-// import paperStack from '../../../assets/paper-stack.jpg';
+import pieChart from '../../../assets/pie-chart.png';
+import lineGraph from '../../../assets/line-graph.png';
+import barGraph from '../../../assets/bar-graph.png';
+import paperStack from '../../../assets/paper-stack.jpg';
 import { useNavigate } from 'react-router-dom';
 import { useDownloadData } from '../../../hooks/useDownloadData.js';
-import {decodeBase64} from '../../../utils/decodeBase64.js';
 
 /**
  * TODO: Ticket 1:
@@ -15,25 +14,115 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   const { downloadCSV } = useDownloadData();
 
-  const scrollToTop = () => {
-    let scrollStep = -window.scrollY / 20; // Adjust the divisor for speed
-    let scrollInterval = setInterval(() => {
-      if (window.scrollY === 0) {
-        clearInterval(scrollInterval);
-      } else {
-        window.scrollBy(0, scrollStep);
-      }
-    }, 10); // Adjust the interval time for smoothness
+  const handleReadMore = () => {
+    window.open('https://www.humanrightsfirst.org', '_blank');
   };
 
-  const handleReadMore = () => {
-    // TODO: navigate to the humanrightsfirst.org homepage
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className='flex-c w-[100vw] secondary-c'>
-      Landing Page
-      <div>{'Type this into Canvas: ' + decodeBase64('VGltZTJDb2RlIQ==')}</div>
+    <div className="flex flex-col w-full">
+      {/* Header Section */}
+      <section className="flex flex-col items-center justify-center bg-[#666555] text-white py-16 px-4">
+        <h1 className="text-5xl font-serif mb-6 text-center">Asylum Office Grant Rate Tracker</h1>
+        <p className="text-xl max-w-4xl text-center font-light">
+          The Asylum Office Grant Rate Tracker provides asylum seekers, researchers, policymakers, and the public an interactive tool to explore USCIS data on Asylum Office decisions
+        </p>
+      </section>
+
+      {/* Graphs Summary Section */}
+      <section className="flex flex-col items-center py-20 bg-[#f9f9f9]">
+        <div className="flex flex-wrap justify-center gap-16 mb-12 max-w-7xl px-4">
+          <div className="flex flex-col items-center max-w-sm text-center">
+            <img src={barGraph} alt="Bar Graph" className="h-64 mb-6" />
+            <h3 className="text-2xl font-bold">Search Grant Rates By Office</h3>
+          </div>
+          <div className="flex flex-col items-center max-w-sm text-center">
+            <img src={pieChart} alt="Pie Chart" className="h-64 mb-6" />
+            <h3 className="text-2xl font-bold">Search Grant Rates By Nationality</h3>
+          </div>
+          <div className="flex flex-col items-center max-w-sm text-center">
+            <img src={lineGraph} alt="Line Graph" className="h-64 mb-6" />
+            <h3 className="text-2xl font-bold">Search Grant Rates Over Time</h3>
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          <button
+            onClick={() => navigate('/graphs')}
+            className="bg-[#666555] text-white px-8 py-2 font-bold hover:bg-[#555444] transition-colors"
+          >
+            View the Data
+          </button>
+          <button
+            onClick={() => downloadCSV()}
+            className="bg-[#666555] text-white px-8 py-2 font-bold hover:bg-[#555444] transition-colors"
+          >
+            Download the Data
+          </button>
+        </div>
+      </section>
+
+      {/* Info Section */}
+      <section className="flex flex-wrap items-center justify-center py-24 px-8 gap-16 max-w-7xl mx-auto">
+        <img
+          src={paperStack}
+          alt="Paper Stacks"
+          className="w-full md:w-1/2 max-w-2xl rounded-3xl shadow-lg"
+        />
+        <div className="flex-1 min-w-[300px]">
+          <p className="text-xl leading-relaxed text-gray-800">
+            Human Rights First has created a search tool to give you a user-friendly way to explore a data set of asylum decisions between FY 2016 and May 2021 by the USCIS Asylum Office, which we received through a Freedom of Information Act request. You can search for information on asylum grant rates by year, nationality, and asylum office, visualize the data with charts and heat maps, and download the data set.
+          </p>
+        </div>
+      </section>
+
+      {/* Statistics Section */}
+      <section className="flex flex-col items-center py-20 px-4 bg-white">
+        <h2 className="text-4xl font-serif mb-20 text-center">Systemic Disparity Insights</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 max-w-7xl mb-20">
+          <div className="flex flex-col items-center text-center">
+            <h4 className="text-6xl font-serif mb-6">36%</h4>
+            <p className="text-lg leading-relaxed">
+              By the end of the Trump administration, the average asylum office grant rate had fallen 36% from an average of 44 percent in fiscal year 2016 to 28 percent in fiscal year 2020.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <h4 className="text-6xl font-serif mb-6">5%</h4>
+            <p className="text-lg leading-relaxed">
+              The New York asylum office grant rate dropped to 5 percent in fiscal year 2020.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <h4 className="text-6xl font-serif mb-6">6x Lower</h4>
+            <p className="text-lg leading-relaxed">
+              Between fiscal year 2017 and 2020, the New York asylum office's average grant rate was 6 times lower than the San Francisco asylum office.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={handleReadMore}
+          className="bg-[#666555] text-white px-10 py-3 font-bold hover:bg-[#555444] transition-colors mb-16"
+        >
+          Read More
+        </button>
+
+        <button
+          onClick={scrollToTop}
+          className="text-xl font-bold hover:underline transition-all"
+        >
+          Back To Top ^
+        </button>
+      </section>
+
+      {/* Canvas Text */}
+      <p className="text-center text-sm text-gray-400 mt-20 mb-10">
+        Type this into Canvas: Time2Code!
+      </p>
     </div>
   );
 };
