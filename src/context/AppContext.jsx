@@ -17,16 +17,14 @@ const useAppContextProvider = () => {
 
   useLocalStorage({ graphData, setGraphData });
 
-  const getFiscalData = () => {
-    // TODO: Replace this with functionality to retrieve the data from the fiscalSummary endpoint
-    const fiscalDataRes = testData;
-    return fiscalDataRes;
+  const getFiscalData = async () => {
+    const res = await axios.get('https://asylum-be.onrender.com/fiscalSummary');
+    return res.data;
   };
 
   const getCitizenshipResults = async () => {
-    // TODO: Replace this with functionality to retrieve the data from the citizenshipSummary endpoint
-    const citizenshipRes = testData.citizenshipResults;
-    return citizenshipRes;
+    const res = await axios.get('https://asylum-be.onrender.com/citizenshipSummary');
+    return res.data;
   };
 
   const updateQuery = async () => {
@@ -34,7 +32,18 @@ const useAppContextProvider = () => {
   };
 
   const fetchData = async () => {
-    // TODO: fetch all the required data and set it to the graphData state
+    try {
+      const fiscalData = await getFiscalData();
+      const citizenshipResults = await getCitizenshipResults();
+      setGraphData({
+        ...fiscalData,
+        citizenshipResults,
+      });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsDataLoading(false);
+    }
   };
 
   const clearQuery = () => {
