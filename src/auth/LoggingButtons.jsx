@@ -8,7 +8,7 @@ import React from 'react';
 export const LoggingButtons = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  const buttonText = isAuthenticated ? 'Log Out' : 'Log In';
+  const buttonText = isAuthenticated ? 'Logout' : 'Login';
 
   const handleLogging = () => {
     if (isAuthenticated) {
