@@ -5,9 +5,8 @@ import { ProvideAppContext } from './context/AppContext.jsx';
 import React from 'react';
 
 createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <ProvideAppContext>
       <App />
     </ProvideAppContext>
-  </React.StrictMode>
 );

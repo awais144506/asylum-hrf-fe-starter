@@ -18,14 +18,15 @@ export const Auth0ProviderWithConfig = ({ children }) => {
   };
 
   return (
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
-      onRedirectCallback={onRedirectCallback}
-    >
+   <Auth0Provider
+  domain={domain}
+  clientId={clientId}
+  authorizationParams={{
+    redirect_uri: window.location.origin,
+ 
+  }}
+  onRedirectCallback={onRedirectCallback}
+>
       {children}
     </Auth0Provider>
   );
